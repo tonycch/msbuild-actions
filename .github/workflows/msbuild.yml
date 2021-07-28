@@ -1,0 +1,23 @@
+name: msbuild and run
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-2016
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup msbuild
+      uses: microsoft/setup-msbuild@v1.0.2    
+    - name: msbuild
+      run: msbuild /p:OutputPath=..\bin ConsoleDemo.sln
+      shell: cmd
+    - name: Say Hello
+      run: .\bin\ConsoleDemo.exe
+      shell: cmd
